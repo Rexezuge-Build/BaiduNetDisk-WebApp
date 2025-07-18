@@ -6,7 +6,7 @@ RUN apk add --no-cache wget
 
 RUN wget https://issuepcdn.baidupcs.com/issue/netdisk/LinuxGuanjia/${BAIDUNETDISK_VER}/baidunetdisk_${BAIDUNETDISK_VER}_amd64.deb -O baidunetdisk.deb
 
-FROM jlesage/baseimage-gui:debian-10
+FROM jlesage/baseimage-gui:debian-11
 
 COPY --from=0 /baidunetdisk.deb /baidunetdisk.deb
 
