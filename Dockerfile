@@ -6,7 +6,7 @@ RUN apk add --no-cache wget
 
 RUN wget https://issuepcdn.baidupcs.com/issue/netdisk/LinuxGuanjia/${BAIDUNETDISK_VER}/baidunetdisk_${BAIDUNETDISK_VER}_amd64.deb -O baidunetdisk.deb
 
-FROM jlesage/baseimage-gui:debian-11
+FROM jlesage/baseimage-gui:debian-11 AS builder
 
 COPY --from=0 /baidunetdisk.deb /baidunetdisk.deb
 
@@ -26,8 +26,26 @@ RUN apt update \
  && apt autoremove -y --purge \
  && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-ENV APP_NAME="BaiduNetDisk" \
+FROM scratch
+
+COPY --from=builder / /
+
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=3 \
+    S6_SERVICE_DEPS=1 \
+    USER_ID=1000 \
+    GROUP_ID=1000 \
+    APP_USER=app \
+    XDG_DATA_HOME=/config/xdg/data \
+    XDG_CONFIG_HOME=/config/xdg/config \
+    XDG_CACHE_HOME=/config/xdg/cache \
+    XDG_RUNTIME_DIR=/tmp/run/user/app \
+    DISPLAY=:0 \
+    DISPLAY_WIDTH=1280 \
+    DISPLAY_HEIGHT=768 \
+    APP_NAME="BaiduNetDisk" \
     NOVNC_LANGUAGE="en_US" \
     TZ=America/New_York
+
+EXPOSE 5800
 
 VOLUME ["/config/downloads", "/config/.config"]
