@@ -20,8 +20,7 @@ RUN apt install -y --no-install-recommends \
     libgbm1 libasound2 ttf-wqy-zenhei
 
 RUN dpkg -i /baidunetdisk.deb \
- && rm /baidunetdisk.deb \
- && install_app_icon.sh https://raw.githubusercontent.com/gshang2017/docker/master/baidunetdisk/icon/baidunetdisk.png
+ && rm /baidunetdisk.deb
 
 RUN apt clean autoclean \
  && apt autoremove -y --purge \
