@@ -49,3 +49,5 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=3 \
 EXPOSE 5800
 
 VOLUME ["/config/downloads", "/config/.config"]
+
+ENTRYPOINT ["/init"]
