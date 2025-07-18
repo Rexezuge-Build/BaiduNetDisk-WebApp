@@ -13,16 +13,16 @@ COPY --from=0 /baidunetdisk.deb /baidunetdisk.deb
 COPY .FILES/startapp.sh /startapp.sh
 
 RUN apt update \
- && apt upgrade -y --no-install-recommends
+ && apt upgrade -y --no-install-recommends \
 
-RUN apt install -y --no-install-recommends \
+ && apt install -y --no-install-recommends \
     libgtk-3-0 libnotify4 libnss3 libxss1 xdg-utils libatspi2.0-0 libsecret-1-0 \
-    libgbm1 libasound2 ttf-wqy-zenhei
+    libgbm1 libasound2 ttf-wqy-zenhei \
 
-RUN dpkg -i /baidunetdisk.deb \
- && rm /baidunetdisk.deb
+ && dpkg -i /baidunetdisk.deb \
+ && rm /baidunetdisk.deb \
 
-RUN apt clean autoclean \
+ && apt clean autoclean \
  && apt autoremove -y --purge \
  && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
