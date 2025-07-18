@@ -50,4 +50,6 @@ EXPOSE 5800
 
 VOLUME ["/config/downloads", "/config/.config"]
 
+WORKDIR /tmp
+
 ENTRYPOINT ["/init"]
