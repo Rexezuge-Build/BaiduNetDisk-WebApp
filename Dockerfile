@@ -10,7 +10,7 @@ FROM jlesage/baseimage-gui:debian-11
 
 COPY --from=0 /baidunetdisk.deb /baidunetdisk.deb
 
-COPY .FILES/startapp.sh /startapp.sh
+COPY overlay/ /
 
 RUN apt update \
  && apt upgrade -y --no-install-recommends \
