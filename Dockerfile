@@ -30,4 +30,4 @@ ENV APP_NAME="BaiduNetDisk" \
     NOVNC_LANGUAGE="en_US" \
     TZ=America/New_York
 
-VOLUME ["/config"]
+VOLUME ["/config/downloads", "/config/.config"]
